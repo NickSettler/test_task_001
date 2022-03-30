@@ -6,6 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "./saga";
+import historyReducer, { moduleName as historyModuleName } from "./history";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -19,7 +20,7 @@ if (process.env.NODE_ENV !== "production") {
 const enhancer = compose(applyMiddleware(sagaMiddleware), ...middleware);
 
 const rootReducer = combineReducers({
-  // [someModuleName]: someReducer,
+  [historyModuleName]: historyReducer,
 });
 
 const store = createStore(rootReducer, enhancer);
