@@ -16,6 +16,15 @@ const reducer = (
         items: unionWith(state.items, [item], isEqual),
       };
     }
+
+    case actionTypes.SET_HISTORY_ITEMS: {
+      const { items }: { items: HistoryItem[] } = payload;
+      return {
+        ...state,
+        items,
+      };
+    }
+
     case actionTypes.REMOVE_HISTORY_ITEM: {
       const { id }: { id: string } = payload;
 
