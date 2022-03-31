@@ -1,4 +1,10 @@
-import { ClickAwayListener, IconButton, Stack, TextField } from "@mui/material";
+import {
+  Button,
+  ClickAwayListener,
+  IconButton,
+  Stack,
+  TextField,
+} from "@mui/material";
 import HistoryIcon from "@mui/icons-material/History";
 import ClearIcon from "@mui/icons-material/Clear";
 import { connect } from "react-redux";
@@ -6,7 +12,7 @@ import { SearchBarProps } from "./SearchBar.types";
 import useSearchBar from "./useSearchBar";
 import { historyItemsSelector } from "../../../modules/history";
 import HistoryDropdown from "../HistoryDropdown/HistoryDropdown";
-import WeatherApi from "../../../helpers/api/WeatherApi";
+import { SearchBarForm } from "./SearchBar.styled";
 
 const SearchBar = (props: SearchBarProps): JSX.Element => {
   const {
@@ -14,42 +20,47 @@ const SearchBar = (props: SearchBarProps): JSX.Element => {
     searchTerm,
     clearSearch,
     handleInput,
+    handleSubmit,
     dropdownOpen,
     handleDropdownToggle,
     handleDropdownClose,
-    filteredItems,
+    filteredHistoryItems,
+    placesItems,
   } = useSearchBar(props);
-
-  WeatherApi.getInstance();
 
   return (
     <ClickAwayListener onClickAway={handleDropdownClose}>
       <Stack direction={"row"}>
-        <TextField
-          ref={textFieldRef}
-          variant={"outlined"}
-          label={"City"}
-          placeholder={"Prague"}
-          value={searchTerm}
-          onInput={handleInput}
-          InputProps={{
-            endAdornment:
-              searchTerm === "" ? (
-                <IconButton onClick={handleDropdownToggle}>
-                  <HistoryIcon />
-                </IconButton>
-              ) : (
-                <IconButton onClick={clearSearch}>
-                  <ClearIcon />
-                </IconButton>
-              ),
-          }}
-        />
-        {`${dropdownOpen}`}
+        <SearchBarForm onSubmit={handleSubmit}>
+          <TextField
+            ref={textFieldRef}
+            variant={"outlined"}
+            label={"City"}
+            placeholder={"Prague"}
+            value={searchTerm}
+            onInput={handleInput}
+            InputProps={{
+              endAdornment:
+                searchTerm === "" ? (
+                  <IconButton onClick={handleDropdownToggle}>
+                    <HistoryIcon />
+                  </IconButton>
+                ) : (
+                  <IconButton onClick={clearSearch}>
+                    <ClearIcon />
+                  </IconButton>
+                ),
+            }}
+          />
+          <Button type={"submit"} variant={"contained"} color={"primary"}>
+            Search
+          </Button>
+        </SearchBarForm>
         <HistoryDropdown
           open={dropdownOpen}
           anchorRef={textFieldRef}
-          items={filteredItems}
+          historyItems={filteredHistoryItems}
+          placeItems={placesItems}
         />
       </Stack>
     </ClickAwayListener>

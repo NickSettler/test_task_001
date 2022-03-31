@@ -1,7 +1,9 @@
 import {
   Fade,
   List,
+  ListItem,
   ListItemButton,
+  ListItemText,
   Paper,
   Popper,
   Typography,
@@ -11,7 +13,7 @@ import { HistoryDropdownProps } from "./HistoryDropdown.types";
 import useHistoryDropdown from "./useHistoryDropdown";
 
 const HistoryDropdown = (props: HistoryDropdownProps): JSX.Element => {
-  const { anchorRef, items } = props;
+  const { anchorRef, historyItems, placeItems } = props;
 
   const { open } = useHistoryDropdown(props);
 
@@ -22,7 +24,7 @@ const HistoryDropdown = (props: HistoryDropdownProps): JSX.Element => {
       transition
       placement={"bottom-start"}
     >
-      {items.length ? (
+      {historyItems.length || placeItems.length ? (
         ({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
             <Paper
@@ -32,11 +34,29 @@ const HistoryDropdown = (props: HistoryDropdownProps): JSX.Element => {
               }}
             >
               <List dense>
-                {items.map((item) => (
-                  <ListItemButton onClick={() => {}} key={item.uuid}>
-                    <Typography variant={"body1"}>{item.name}</Typography>
-                  </ListItemButton>
-                ))}
+                {placeItems.length === 0 ? (
+                  <>
+                    <ListItem>
+                      <ListItemText secondary={"History"} />
+                    </ListItem>
+                    {historyItems.map((item) => (
+                      <ListItemButton onClick={() => {}} key={item.uuid}>
+                        <Typography variant={"body1"}>{item.name}</Typography>
+                      </ListItemButton>
+                    ))}
+                  </>
+                ) : (
+                  <>
+                    <ListItem>
+                      <ListItemText secondary={"Search Results"} />
+                    </ListItem>
+                    {placeItems.map((item) => (
+                      <ListItemButton onClick={() => {}} key={item.woeid}>
+                        <Typography variant={"body1"}>{item.title}</Typography>
+                      </ListItemButton>
+                    ))}
+                  </>
+                )}
               </List>
             </Paper>
           </Fade>
