@@ -11,7 +11,7 @@ export type PlaceItem = {
 export type WeatherData = {
   id: number;
   weather_state_name: string;
-  weather_state_abbr: string;
+  weather_state_abbr: AvailableWeatherAbbr;
   wind_direction_compass: string;
   created: string;
   applicable_date: string;
@@ -41,6 +41,18 @@ export type WeatherItem = Omit<PlaceItem, "distance"> & {
     crawl_rate: number;
   }>;
 };
+
+export type AvailableWeatherAbbr =
+  | "sn"
+  | "sl"
+  | "h"
+  | "t"
+  | "hr"
+  | "lr"
+  | "s"
+  | "hc"
+  | "lc"
+  | "c";
 
 export default class WeatherApi {
   private static _instance: WeatherApi;
@@ -75,5 +87,13 @@ export default class WeatherApi {
       .then((response) => {
         return response.data;
       });
+  }
+
+  public static get iconUrl(): string {
+    return "https://www.metaweather.com/static/img/weather/";
+  }
+
+  public static getIconUrl(icon: AvailableWeatherAbbr): string {
+    return `${WeatherApi.iconUrl}${icon}.svg`;
   }
 }

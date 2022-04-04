@@ -1,13 +1,27 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { connect } from "react-redux";
+import WeatherApi, {
+  WeatherData as WeatherDataType,
+} from "../../../helpers/api/WeatherApi";
 import { WeatherDataProps } from "./WeatherData.types";
 import {
   currentWeatherItemSelector,
   isLoadingWeatherItemSelector,
   selectedPlaceSelector,
 } from "../../../modules/weather";
-import { Breadcrumbs, CircularProgress, Typography } from "@mui/material";
-import { WeatherDataContainer } from "./WeatherData.styled";
+import {
+  Avatar,
+  Card,
+  CardContent,
+  CardHeader,
+  CircularProgress,
+  Grid,
+  Typography,
+} from "@mui/material";
+import {
+  WeatherDataBreadcrumbs,
+  WeatherDataContainer,
+} from "./WeatherData.styled";
 
 const WeatherData = (props: WeatherDataProps): JSX.Element => {
   const { currentWeatherItem, isLoading } = props;
@@ -23,12 +37,34 @@ const WeatherData = (props: WeatherDataProps): JSX.Element => {
 
   return (
     <WeatherDataContainer direction={"column"}>
-      <Breadcrumbs>
+      <WeatherDataBreadcrumbs>
         <Typography>{currentWeatherItem.parent.title}</Typography>
         <Typography color={"text.primary"}>
           {currentWeatherItem.title}
         </Typography>
-      </Breadcrumbs>
+      </WeatherDataBreadcrumbs>
+      <Grid container spacing={4}>
+        {currentWeatherItem.consolidated_weather.map(
+          (weather: WeatherDataType) => (
+            <Grid xs={12} sm={6} md={4} lg={3} item key={weather.id}>
+              <Card>
+                <CardHeader
+                  avatar={
+                    <Avatar
+                      alt={weather.weather_state_name}
+                      src={WeatherApi.getIconUrl(weather.weather_state_abbr)}
+                    />
+                  }
+                  title={weather.weather_state_name}
+                  subheader={`
+                    ${Math.round(weather.min_temp)}°C - 
+                    ${Math.round(weather.max_temp)}°C`}
+                />
+              </Card>
+            </Grid>
+          )
+        )}
+      </Grid>
     </WeatherDataContainer>
   );
 };
