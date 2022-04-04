@@ -13,15 +13,17 @@ const ResultHints = (props: ResultHintsProps): JSX.Element => {
   const { handleItemClick } = useResultHints(props);
 
   return (
-    <ResultHintsBlock>
-      {items.map((item: PlaceItem) => (
-        <Fade key={item.woeid} in={true}>
-          <ResultHintLink onClick={() => handleItemClick(item)}>
-            {item.title}
-          </ResultHintLink>
-        </Fade>
-      ))}
-    </ResultHintsBlock>
+    <Fade in={!!items.length}>
+      <ResultHintsBlock>
+        {items.map((item: PlaceItem) => (
+          <Fade key={item.woeid} in={true}>
+            <ResultHintLink onClick={() => handleItemClick(item)}>
+              {item.title}
+            </ResultHintLink>
+          </Fade>
+        ))}
+      </ResultHintsBlock>
+    </Fade>
   );
 };
 
