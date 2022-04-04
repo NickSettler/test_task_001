@@ -1,9 +1,9 @@
 import React from "react";
-import { HistoryItem } from "../../../modules/history/types/history.types";
 import { PlaceItem } from "../../../helpers/api/WeatherApi";
 
 export type SearchBarProps = {
-  historyItems: HistoryItem[];
+  selectedPlace: PlaceItem | false;
+  addPlaceItem: (placeItem: PlaceItem | PlaceItem[]) => void;
 };
 
 export type SearchBarHook = {
@@ -15,7 +15,6 @@ export type SearchBarHook = {
   dropdownOpen: boolean;
   handleDropdownToggle: () => void;
   handleDropdownClose: () => void;
-  filteredHistoryItems: HistoryItem[];
   placesItems: PlaceItem[];
   error: string | false;
 };

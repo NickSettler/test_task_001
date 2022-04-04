@@ -1,15 +1,15 @@
 import { SearchBarHook, SearchBarProps } from "./SearchBar.types";
-import React, { useCallback, useState } from "react";
-import { HistoryItem } from "../../../modules/history/types/history.types";
+import React, { useCallback, useEffect, useState } from "react";
 import WeatherApi, { PlaceItem } from "../../../helpers/api/WeatherApi";
 
-const useSearchBar = ({ historyItems }: SearchBarProps): SearchBarHook => {
+const useSearchBar = ({
+  selectedPlace,
+  addPlaceItem,
+}: SearchBarProps): SearchBarHook => {
   const textFieldRef = React.useRef<HTMLInputElement>(null);
 
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
-  const [filteredItems, setFilteredItems] =
-    useState<HistoryItem[]>(historyItems);
   const [placesItems, setPlacesItems] = useState<PlaceItem[]>([]);
   const [error, setError] = useState<string | false>(false);
 
@@ -24,22 +24,26 @@ const useSearchBar = ({ historyItems }: SearchBarProps): SearchBarHook => {
         return;
       }
 
+      addPlaceItem(places);
+
       setPlacesItems(places);
 
       if (places.length) setDropdownOpen(true);
       else setDropdownOpen(false);
     },
-    [searchTerm]
+    [addPlaceItem, searchTerm]
   );
 
   const handleInput = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setSearchTerm(e.target.value);
-      setPlacesItems([]);
+      setPlacesItems(
+        placesItems.filter((item) => item.title.includes(e.target.value))
+      );
 
       if (error) setError(false);
     },
-    [error]
+    [error, placesItems]
   );
 
   const clearSearch = useCallback((): void => {
@@ -47,8 +51,8 @@ const useSearchBar = ({ historyItems }: SearchBarProps): SearchBarHook => {
   }, []);
 
   const handleDropdownToggle = useCallback((): void => {
-    setDropdownOpen(filteredItems.length ? !dropdownOpen : false);
-  }, [dropdownOpen, filteredItems.length]);
+    setDropdownOpen(!dropdownOpen);
+  }, [dropdownOpen]);
 
   const handleDropdownClose = useCallback((): void => {
     setDropdownOpen(false);
@@ -62,6 +66,13 @@ const useSearchBar = ({ historyItems }: SearchBarProps): SearchBarHook => {
     [getPlaces]
   );
 
+  useEffect(() => {
+    if (selectedPlace) {
+      setSearchTerm(selectedPlace.title);
+      setPlacesItems([]);
+    }
+  }, [selectedPlace]);
+
   return {
     textFieldRef,
     searchTerm,
@@ -71,7 +82,6 @@ const useSearchBar = ({ historyItems }: SearchBarProps): SearchBarHook => {
     dropdownOpen,
     handleDropdownToggle,
     handleDropdownClose,
-    filteredHistoryItems: filteredItems,
     placesItems,
     error,
   };

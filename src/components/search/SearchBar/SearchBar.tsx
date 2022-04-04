@@ -10,9 +10,12 @@ import ClearIcon from "@mui/icons-material/Clear";
 import { connect } from "react-redux";
 import { SearchBarProps } from "./SearchBar.types";
 import useSearchBar from "./useSearchBar";
-import { historyItemsSelector } from "../../../modules/history";
-import HistoryDropdown from "../HistoryDropdown/HistoryDropdown";
+import { addPlaceItem } from "../../../modules/history";
 import { SearchBarForm } from "./SearchBar.styled";
+import ResultHints from "../ResultHints";
+import { Dispatch } from "@reduxjs/toolkit";
+import { PlaceItem } from "../../../helpers/api/WeatherApi";
+import { selectedPlaceSelector } from "../../../modules/weather";
 
 const SearchBar = (props: SearchBarProps): JSX.Element => {
   const {
@@ -21,17 +24,15 @@ const SearchBar = (props: SearchBarProps): JSX.Element => {
     clearSearch,
     handleInput,
     handleSubmit,
-    dropdownOpen,
     handleDropdownToggle,
     handleDropdownClose,
-    filteredHistoryItems,
     placesItems,
     error,
   } = useSearchBar(props);
 
   return (
     <ClickAwayListener onClickAway={handleDropdownClose}>
-      <Stack direction={"row"}>
+      <Stack direction={"column"}>
         <SearchBarForm onSubmit={handleSubmit}>
           <TextField
             color={error ? "error" : "primary"}
@@ -59,20 +60,18 @@ const SearchBar = (props: SearchBarProps): JSX.Element => {
             Search
           </Button>
         </SearchBarForm>
-        <HistoryDropdown
-          open={dropdownOpen}
-          onClose={handleDropdownClose}
-          anchorRef={textFieldRef}
-          historyItems={filteredHistoryItems}
-          placeItems={placesItems}
-        />
+        <ResultHints items={placesItems} />
       </Stack>
     </ClickAwayListener>
   );
 };
 
 const mapStateToProps = (state: any) => ({
-  historyItems: historyItemsSelector(state),
+  selectedPlace: selectedPlaceSelector(state),
 });
 
-export default connect(mapStateToProps, {})(SearchBar);
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  addPlaceItem: (item: PlaceItem | PlaceItem[]) => addPlaceItem(item),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
