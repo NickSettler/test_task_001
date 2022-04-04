@@ -58,6 +58,7 @@ const SearchBar = (props: SearchBarProps): JSX.Element => {
         </SearchBarForm>
         <HistoryDropdown
           open={dropdownOpen}
+          onClose={handleDropdownClose}
           anchorRef={textFieldRef}
           historyItems={filteredHistoryItems}
           placeItems={placesItems}

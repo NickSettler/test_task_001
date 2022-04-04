@@ -11,11 +11,17 @@ import {
 import { connect } from "react-redux";
 import { HistoryDropdownProps } from "./HistoryDropdown.types";
 import useHistoryDropdown from "./useHistoryDropdown";
+import {
+  selectedPlaceSelector,
+  setSelectedPlace,
+} from "../../../modules/weather";
+import { Dispatch } from "@reduxjs/toolkit";
+import { PlaceItem } from "../../../helpers/api/WeatherApi";
 
 const HistoryDropdown = (props: HistoryDropdownProps): JSX.Element => {
   const { anchorRef, historyItems, placeItems } = props;
 
-  const { open } = useHistoryDropdown(props);
+  const { open, handleItemClick } = useHistoryDropdown(props);
 
   return (
     <Popper
@@ -40,8 +46,8 @@ const HistoryDropdown = (props: HistoryDropdownProps): JSX.Element => {
                       <ListItemText secondary={"History"} />
                     </ListItem>
                     {historyItems.map((item) => (
-                      <ListItemButton onClick={() => {}} key={item.uuid}>
-                        <Typography variant={"body1"}>{item.name}</Typography>
+                      <ListItemButton onClick={() => {}} key={item.query}>
+                        <Typography variant={"body1"}>{item.query}</Typography>
                       </ListItemButton>
                     ))}
                   </>
@@ -51,7 +57,10 @@ const HistoryDropdown = (props: HistoryDropdownProps): JSX.Element => {
                       <ListItemText secondary={"Search Results"} />
                     </ListItem>
                     {placeItems.map((item) => (
-                      <ListItemButton onClick={() => {}} key={item.woeid}>
+                      <ListItemButton
+                        onClick={() => handleItemClick(item)}
+                        key={item.woeid}
+                      >
                         <Typography variant={"body1"}>{item.title}</Typography>
                       </ListItemButton>
                     ))}
@@ -68,4 +77,12 @@ const HistoryDropdown = (props: HistoryDropdownProps): JSX.Element => {
   );
 };
 
-export default connect(null, null)(HistoryDropdown);
+const mapStateToProps = (state: any) => ({
+  selectedPlace: selectedPlaceSelector(state),
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  setSelectedPlace: (place: PlaceItem) => dispatch(setSelectedPlace(place)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HistoryDropdown);
