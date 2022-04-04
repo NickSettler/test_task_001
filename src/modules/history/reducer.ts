@@ -3,6 +3,7 @@ import { HistoryState } from "./schema";
 import { AnyAction } from "@reduxjs/toolkit";
 import { actionTypes } from "./actions";
 import { unionWith, isEqual, filter } from "lodash";
+import { PlaceItem } from "../../helpers/api/WeatherApi";
 
 const reducer = (
   state: HistorySchema = HistoryState,
@@ -40,6 +41,39 @@ const reducer = (
         items: [],
       };
     }
+
+    case actionTypes.ADD_PLACE_ITEM: {
+      const { item }: { item: PlaceItem } = payload;
+      return {
+        ...state,
+        places: unionWith(state.places, [item], isEqual),
+      };
+    }
+
+    case actionTypes.SET_PLACE_ITEMS: {
+      const { items }: { items: HistoryItem[] } = payload;
+      return {
+        ...state,
+        places: items,
+      };
+    }
+
+    case actionTypes.REMOVE_PLACE_ITEM: {
+      const { woeid }: { woeid: number } = payload;
+
+      return {
+        ...state,
+        places: filter(state.places, (item: PlaceItem) => item.woeid !== woeid),
+      };
+    }
+
+    case actionTypes.CLEAR_PLACES: {
+      return {
+        ...state,
+        places: [],
+      };
+    }
+
     default:
       return state;
   }

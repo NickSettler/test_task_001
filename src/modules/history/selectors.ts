@@ -8,3 +8,8 @@ export const historyItemsSelector = createSelector(
   [historyModule],
   (state: HistorySchema) => state.items
 );
+
+export const placeItemsSelector = createSelector(
+  [historyModule],
+  (state: HistorySchema) => state.places
+);

@@ -5,4 +5,5 @@ export type HistoryItem = {
 
 export type HistorySchema = {
   items: HistoryItem[];
+  places: PlaceItem[];
 };
