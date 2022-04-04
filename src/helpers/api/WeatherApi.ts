@@ -57,7 +57,7 @@ export default class WeatherApi {
   public queryPlace(query: string): Promise<Array<PlaceItem>> {
     return axios
       .get<Array<PlaceItem>>(
-        `https://cors-anywhere.herokuapp.com/${WeatherApi._apiUrl}/location/search/?query=${query}`
+        `https://cors-proxy-ns.herokuapp.com/${WeatherApi._apiUrl}/location/search/?query=${query}`
       )
       .then((response) => {
         return response.data;
@@ -70,7 +70,7 @@ export default class WeatherApi {
   ): Promise<WeatherItem> {
     return axios
       .get<WeatherItem>(
-        `https://cors-anywhere.herokuapp.com/${WeatherApi._apiUrl}/location/${woeid}/${date}`
+        `https://cors-proxy-ns.herokuapp.com/${WeatherApi._apiUrl}/location/${woeid}/${date}`
       )
       .then((response) => {
         return response.data;
