@@ -9,7 +9,6 @@ const useSearchBar = ({
   const textFieldRef = React.useRef<HTMLInputElement>(null);
 
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [placesItems, setPlacesItems] = useState<PlaceItem[]>([]);
   const [error, setError] = useState<string | false>(false);
 
@@ -27,9 +26,6 @@ const useSearchBar = ({
       addPlaceItem(places);
 
       setPlacesItems(places);
-
-      if (places.length) setDropdownOpen(true);
-      else setDropdownOpen(false);
     },
     [addPlaceItem, searchTerm]
   );
@@ -48,14 +44,6 @@ const useSearchBar = ({
 
   const clearSearch = useCallback((): void => {
     setSearchTerm("");
-  }, []);
-
-  const handleDropdownToggle = useCallback((): void => {
-    setDropdownOpen(!dropdownOpen);
-  }, [dropdownOpen]);
-
-  const handleDropdownClose = useCallback((): void => {
-    setDropdownOpen(false);
   }, []);
 
   const handleSubmit = useCallback(
@@ -79,9 +67,6 @@ const useSearchBar = ({
     clearSearch,
     handleInput,
     handleSubmit,
-    dropdownOpen,
-    handleDropdownToggle,
-    handleDropdownClose,
     placesItems,
     error,
   };

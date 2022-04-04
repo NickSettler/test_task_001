@@ -12,9 +12,6 @@ export type SearchBarHook = {
   clearSearch: () => void;
   handleInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  dropdownOpen: boolean;
-  handleDropdownToggle: () => void;
-  handleDropdownClose: () => void;
   placesItems: PlaceItem[];
   error: string | false;
 };

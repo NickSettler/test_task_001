@@ -1,11 +1,4 @@
-import {
-  Button,
-  ClickAwayListener,
-  IconButton,
-  Stack,
-  TextField,
-} from "@mui/material";
-import HistoryIcon from "@mui/icons-material/History";
+import { Button, IconButton, Stack, TextField } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import { connect } from "react-redux";
 import { SearchBarProps } from "./SearchBar.types";
@@ -24,45 +17,41 @@ const SearchBar = (props: SearchBarProps): JSX.Element => {
     clearSearch,
     handleInput,
     handleSubmit,
-    handleDropdownToggle,
-    handleDropdownClose,
     placesItems,
     error,
   } = useSearchBar(props);
 
   return (
-    <ClickAwayListener onClickAway={handleDropdownClose}>
-      <Stack direction={"column"}>
-        <SearchBarForm onSubmit={handleSubmit}>
-          <TextField
-            color={error ? "error" : "primary"}
-            ref={textFieldRef}
-            variant={"outlined"}
-            label={"City"}
-            placeholder={"Prague"}
-            value={searchTerm}
-            onInput={handleInput}
-            helperText={error}
-            InputProps={{
-              endAdornment:
-                searchTerm === "" ? (
-                  <IconButton onClick={handleDropdownToggle}>
-                    <HistoryIcon />
-                  </IconButton>
-                ) : (
-                  <IconButton onClick={clearSearch}>
-                    <ClearIcon />
-                  </IconButton>
-                ),
-            }}
-          />
-          <Button type={"submit"} variant={"contained"} color={"primary"}>
-            Search
-          </Button>
-        </SearchBarForm>
-        <ResultHints items={placesItems} />
-      </Stack>
-    </ClickAwayListener>
+    <Stack direction={"column"}>
+      <SearchBarForm onSubmit={handleSubmit}>
+        <TextField
+          color={error ? "error" : "primary"}
+          ref={textFieldRef}
+          variant={"outlined"}
+          label={"City"}
+          placeholder={"Prague"}
+          value={searchTerm}
+          onInput={handleInput}
+          helperText={error}
+          InputProps={{
+            endAdornment:
+              searchTerm !== "" ? (
+                <IconButton onClick={clearSearch}>
+                  <ClearIcon />
+                </IconButton>
+              ) : (
+                <IconButton disabled>
+                  <ClearIcon sx={{ color: "transparent" }} />
+                </IconButton>
+              ),
+          }}
+        />
+        <Button type={"submit"} variant={"contained"} color={"primary"}>
+          Search
+        </Button>
+      </SearchBarForm>
+      <ResultHints items={placesItems} />
+    </Stack>
   );
 };
 
