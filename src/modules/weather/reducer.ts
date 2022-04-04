@@ -2,7 +2,7 @@ import { WeatherState } from "./schema";
 import { AnyAction } from "@reduxjs/toolkit";
 import { actionTypes } from "./actions";
 import { WeatherSchema } from "./types/weather.types";
-import { PlaceItem } from "../../helpers/api/WeatherApi";
+import { PlaceItem, WeatherItem } from "../../helpers/api/WeatherApi";
 
 const reducer = (
   state: WeatherSchema = WeatherState,
@@ -14,6 +14,23 @@ const reducer = (
       return {
         ...state,
         selectedPlace: place,
+      };
+    }
+
+    case actionTypes.SET_IS_WEATHER_ITEM_LOADING: {
+      const { isLoading }: { isLoading: boolean } = payload;
+      return {
+        ...state,
+        isLoading,
+      };
+    }
+
+    case actionTypes.SET_CURRENT_WEATHER_ITEM: {
+      const { weatherItem }: { weatherItem: WeatherItem[] } = payload;
+
+      return {
+        ...state,
+        currentWeatherItem: weatherItem,
       };
     }
 

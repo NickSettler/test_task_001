@@ -8,3 +8,13 @@ export const selectedPlaceSelector = createSelector(
   [weatherModule],
   (state: WeatherSchema) => state.selectedPlace
 );
+
+export const isLoadingWeatherItemSelector = createSelector(
+  [weatherModule],
+  (state: WeatherSchema) => state.isLoading
+);
+
+export const currentWeatherItemSelector = createSelector(
+  [weatherModule],
+  (state: WeatherSchema) => state.currentWeatherItem
+);
