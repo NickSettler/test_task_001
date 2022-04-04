@@ -11,12 +11,19 @@ const useSearchBar = ({ historyItems }: SearchBarProps): SearchBarHook => {
   const [filteredItems, setFilteredItems] =
     useState<HistoryItem[]>(historyItems);
   const [placesItems, setPlacesItems] = useState<PlaceItem[]>([]);
+  const [error, setError] = useState<string | false>(false);
 
   const getPlaces = useCallback(
     async (term?: string) => {
       const places = await WeatherApi.getInstance().queryPlace(
         searchTerm || term || ""
       );
+
+      if (!places.length) {
+        setError("No results found");
+        return;
+      }
+
       setPlacesItems(places);
 
       if (places.length) setDropdownOpen(true);
@@ -28,15 +35,11 @@ const useSearchBar = ({ historyItems }: SearchBarProps): SearchBarHook => {
   const handleInput = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setSearchTerm(e.target.value);
-      setFilteredItems(
-        historyItems.filter(
-          (item: HistoryItem) =>
-            item.name.toLowerCase().indexOf(e.target.value.toLowerCase()) > -1
-        )
-      );
       setPlacesItems([]);
+
+      if (error) setError(false);
     },
-    [historyItems]
+    [error]
   );
 
   const clearSearch = useCallback((): void => {
@@ -70,6 +73,7 @@ const useSearchBar = ({ historyItems }: SearchBarProps): SearchBarHook => {
     handleDropdownClose,
     filteredHistoryItems: filteredItems,
     placesItems,
+    error,
   };
 };
 

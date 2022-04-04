@@ -17,4 +17,5 @@ export type SearchBarHook = {
   handleDropdownClose: () => void;
   filteredHistoryItems: HistoryItem[];
   placesItems: PlaceItem[];
+  error: string | false;
 };

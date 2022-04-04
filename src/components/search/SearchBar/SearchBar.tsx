@@ -26,6 +26,7 @@ const SearchBar = (props: SearchBarProps): JSX.Element => {
     handleDropdownClose,
     filteredHistoryItems,
     placesItems,
+    error,
   } = useSearchBar(props);
 
   return (
@@ -33,12 +34,14 @@ const SearchBar = (props: SearchBarProps): JSX.Element => {
       <Stack direction={"row"}>
         <SearchBarForm onSubmit={handleSubmit}>
           <TextField
+            color={error ? "error" : "primary"}
             ref={textFieldRef}
             variant={"outlined"}
             label={"City"}
             placeholder={"Prague"}
             value={searchTerm}
             onInput={handleInput}
+            helperText={error}
             InputProps={{
               endAdornment:
                 searchTerm === "" ? (
