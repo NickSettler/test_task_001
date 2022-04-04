@@ -12,7 +12,6 @@ import {
 import {
   Avatar,
   Card,
-  CardContent,
   CardHeader,
   CircularProgress,
   Grid,
