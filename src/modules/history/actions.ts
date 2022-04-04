@@ -38,7 +38,7 @@ export const clearHistory = () => ({
   type: actionTypes.CLEAR_HISTORY,
 });
 
-export const addPlaceItem = (item: PlaceItem) => ({
+export const addPlaceItem = (item: PlaceItem | PlaceItem[]) => ({
   type: actionTypes.ADD_PLACE_ITEM,
   payload: {
     item,

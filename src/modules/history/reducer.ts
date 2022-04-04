@@ -2,7 +2,7 @@ import { HistoryItem, HistorySchema } from "./types/history.types";
 import { HistoryState } from "./schema";
 import { AnyAction } from "@reduxjs/toolkit";
 import { actionTypes } from "./actions";
-import { unionWith, isEqual, filter } from "lodash";
+import { unionWith, isEqual, filter, concat, uniqBy } from "lodash";
 import { PlaceItem } from "../../helpers/api/WeatherApi";
 
 const reducer = (
@@ -43,15 +43,18 @@ const reducer = (
     }
 
     case actionTypes.ADD_PLACE_ITEM: {
-      const { item }: { item: PlaceItem } = payload;
+      const { item }: { item: PlaceItem | PlaceItem[] } = payload;
       return {
         ...state,
-        places: unionWith(state.places, [item], isEqual),
+        places: uniqBy(
+          concat(state.places, item),
+          (place: PlaceItem) => place.woeid
+        ),
       };
     }
 
     case actionTypes.SET_PLACE_ITEMS: {
-      const { items }: { items: HistoryItem[] } = payload;
+      const { items }: { items: PlaceItem[] } = payload;
       return {
         ...state,
         places: items,
