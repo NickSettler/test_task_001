@@ -7,6 +7,7 @@ import {
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "./saga";
 import historyReducer, { moduleName as historyModuleName } from "./history";
+import weatherReducer, { moduleName as weatherModuleName } from "./weather";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -21,6 +22,7 @@ const enhancer = compose(applyMiddleware(sagaMiddleware), ...middleware);
 
 const rootReducer = combineReducers({
   [historyModuleName]: historyReducer,
+  [weatherModuleName]: weatherReducer,
 });
 
 const store = createStore(rootReducer, enhancer);
