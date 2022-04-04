@@ -1,4 +1,11 @@
-import { Button, IconButton, Stack, TextField } from "@mui/material";
+import {
+  Button,
+  IconButton,
+  Stack,
+  TextField,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import { connect } from "react-redux";
 import { SearchBarProps } from "./SearchBar.types";
@@ -21,10 +28,14 @@ const SearchBar = (props: SearchBarProps): JSX.Element => {
     error,
   } = useSearchBar(props);
 
+  const theme = useTheme();
+  const xs = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <Stack direction={"column"}>
       <SearchBarForm onSubmit={handleSubmit}>
         <TextField
+          fullWidth={xs}
           color={error ? "error" : "primary"}
           ref={textFieldRef}
           variant={"outlined"}

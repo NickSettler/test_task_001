@@ -49,8 +49,8 @@ const WeatherData = (props: WeatherDataProps): JSX.Element => {
         </Typography>
       </WeatherDataBreadcrumbs>
       <WeatherDataInfoSection>
-        <Grid container spacing={3}>
-          <Grid item xs={6} sm={3}>
+        <Grid container spacing={1}>
+          <Grid item xs={12} sm={4} md={3}>
             <Stack direction={"column"} spacing={1} alignItems={"flex-start"}>
               <Stack direction={"row"} spacing={1} alignItems={"baseline"}>
                 <Typography variant={"subtitle2"}>Sunrise:</Typography>
@@ -70,7 +70,7 @@ const WeatherData = (props: WeatherDataProps): JSX.Element => {
               </Stack>
             </Stack>
           </Grid>
-          <Grid item xs={6} sm={3}>
+          <Grid item xs={12} sm={4} md={3}>
             <Stack direction={"row"} spacing={1} alignItems={"baseline"}>
               <Typography variant={"subtitle2"}>Current time:</Typography>
               <Typography variant={"body1"}>

@@ -9,5 +9,5 @@ export const WeatherDataBreadcrumbs = styled(Breadcrumbs)(({ theme }) => ({
 }));
 
 export const WeatherDataInfoSection = styled(Box)(({ theme }) => ({
-  marginBottom: theme.spacing(2),
+  marginBottom: theme.spacing(3),
 }));
