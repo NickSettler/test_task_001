@@ -22,6 +22,7 @@ export type WeatherData = {
   humidity: number;
   visibility: number;
   predictability: number;
+  time: string;
 };
 
 export type WeatherItem = Omit<PlaceItem, "distance"> & {
