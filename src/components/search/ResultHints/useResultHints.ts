@@ -1,5 +1,5 @@
 import { ResultHintsHook, ResultHintsProps } from "./ResultHints.types";
-import { PlaceItem } from "../../../helpers/api/WeatherApi";
+import { PlaceItem } from "../../../helpers/api";
 import { useCallback } from "react";
 
 const useResultHints = ({

@@ -5,10 +5,7 @@ import {
   setCurrentWeatherItem,
   setIsWeatherItemLoading,
 } from "./actions";
-import WeatherApi, {
-  PlaceItem,
-  WeatherItem,
-} from "../../helpers/api/WeatherApi";
+import WeatherApi, { PlaceItem, WeatherItem } from "../../helpers/api";
 
 export function* weatherSaga() {
   yield all([fork(selectedPlaceChangeWatcher)]);

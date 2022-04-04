@@ -2,7 +2,7 @@ import { WeatherState } from "./schema";
 import { AnyAction } from "@reduxjs/toolkit";
 import { actionTypes } from "./actions";
 import { WeatherSchema } from "./types/weather.types";
-import { PlaceItem, WeatherItem } from "../../helpers/api/WeatherApi";
+import { PlaceItem, WeatherItem } from "../../helpers/api";
 
 const reducer = (
   state: WeatherSchema = WeatherState,

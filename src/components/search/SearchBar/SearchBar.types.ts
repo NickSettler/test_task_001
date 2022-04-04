@@ -1,5 +1,5 @@
 import React from "react";
-import { PlaceItem } from "../../../helpers/api/WeatherApi";
+import { PlaceItem } from "../../../helpers/api";
 
 export type SearchBarProps = {
   selectedPlace: PlaceItem | false;

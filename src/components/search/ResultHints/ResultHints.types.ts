@@ -1,4 +1,4 @@
-import { PlaceItem } from "../../../helpers/api/WeatherApi";
+import { PlaceItem } from "../../../helpers/api";
 
 export type ResultHintsProps = {
   items: PlaceItem[];

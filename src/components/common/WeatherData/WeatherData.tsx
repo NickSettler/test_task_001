@@ -2,7 +2,7 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { connect } from "react-redux";
 import WeatherApi, {
   WeatherData as WeatherDataType,
-} from "../../../helpers/api/WeatherApi";
+} from "../../../helpers/api";
 import { WeatherDataProps } from "./WeatherData.types";
 import {
   currentWeatherItemSelector,

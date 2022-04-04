@@ -3,7 +3,7 @@ import {
   HistoryDropdownProps,
 } from "./HistoryDropdown.types";
 import { useCallback, useEffect, useState } from "react";
-import { PlaceItem } from "../../../helpers/api/WeatherApi";
+import { PlaceItem } from "../../../helpers/api";
 
 const useHistoryDropdown = ({
   open: openProps,

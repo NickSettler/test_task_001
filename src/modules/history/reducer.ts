@@ -3,7 +3,7 @@ import { HistoryState } from "./schema";
 import { AnyAction } from "@reduxjs/toolkit";
 import { actionTypes } from "./actions";
 import { filter, concat, uniqBy } from "lodash";
-import { PlaceItem } from "../../helpers/api/WeatherApi";
+import { PlaceItem } from "../../helpers/api";
 
 const reducer = (
   state: HistorySchema = HistoryState,

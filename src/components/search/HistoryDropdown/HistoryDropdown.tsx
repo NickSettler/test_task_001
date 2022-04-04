@@ -16,7 +16,7 @@ import {
   setSelectedPlace,
 } from "../../../modules/weather";
 import { Dispatch } from "@reduxjs/toolkit";
-import { PlaceItem } from "../../../helpers/api/WeatherApi";
+import { PlaceItem } from "../../../helpers/api";
 
 const HistoryDropdown = (props: HistoryDropdownProps): JSX.Element => {
   const { anchorRef, placeItems } = props;

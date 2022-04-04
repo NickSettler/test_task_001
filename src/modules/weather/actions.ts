@@ -1,5 +1,5 @@
 import { moduleName } from "./module";
-import { PlaceItem, WeatherItem } from "../../helpers/api/WeatherApi";
+import { PlaceItem, WeatherItem } from "../../helpers/api";
 
 export const actionTypes = {
   SET_SELECTED_PLACE: `${moduleName}/SET_SELECTED_PLACE`,

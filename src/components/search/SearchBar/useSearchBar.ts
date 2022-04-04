@@ -1,6 +1,6 @@
 import { SearchBarHook, SearchBarProps } from "./SearchBar.types";
 import React, { useCallback, useEffect, useState } from "react";
-import WeatherApi, { PlaceItem } from "../../../helpers/api/WeatherApi";
+import WeatherApi, { PlaceItem } from "../../../helpers/api";
 
 const useSearchBar = ({
   selectedPlace,

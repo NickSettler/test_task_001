@@ -1,6 +1,6 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { setSelectedPlace } from "../../../modules/weather";
-import { PlaceItem } from "../../../helpers/api/WeatherApi";
+import { PlaceItem } from "../../../helpers/api";
 import { connect } from "react-redux";
 import { ResultHintLink, ResultHintsBlock } from "./ResultHints.styled";
 import { ResultHintsProps } from "./ResultHints.types";

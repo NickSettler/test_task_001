@@ -14,7 +14,7 @@ import { addPlaceItem } from "../../../modules/history";
 import { SearchBarForm } from "./SearchBar.styled";
 import ResultHints from "../ResultHints";
 import { Dispatch } from "@reduxjs/toolkit";
-import { PlaceItem } from "../../../helpers/api/WeatherApi";
+import { PlaceItem } from "../../../helpers/api";
 import { selectedPlaceSelector } from "../../../modules/weather";
 
 const SearchBar = (props: SearchBarProps): JSX.Element => {
