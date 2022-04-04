@@ -1,8 +1,8 @@
-import { HistoryItem, HistorySchema } from "./types/history.types";
+import { HistorySchema } from "./types/history.types";
 import { HistoryState } from "./schema";
 import { AnyAction } from "@reduxjs/toolkit";
 import { actionTypes } from "./actions";
-import { unionWith, isEqual, filter, concat, uniqBy } from "lodash";
+import { filter, concat, uniqBy } from "lodash";
 import { PlaceItem } from "../../helpers/api/WeatherApi";
 
 const reducer = (
@@ -10,38 +10,6 @@ const reducer = (
   { type, payload }: AnyAction
 ) => {
   switch (type) {
-    case actionTypes.ADD_HISTORY_ITEM: {
-      const { item }: { item: HistoryItem } = payload;
-      return {
-        ...state,
-        items: unionWith(state.items, [item], isEqual),
-      };
-    }
-
-    case actionTypes.SET_HISTORY_ITEMS: {
-      const { items }: { items: HistoryItem[] } = payload;
-      return {
-        ...state,
-        items,
-      };
-    }
-
-    case actionTypes.REMOVE_HISTORY_ITEM: {
-      const { id }: { id: string } = payload;
-
-      return {
-        ...state,
-        items: filter(state.items, (item: HistoryItem) => item.uuid !== id),
-      };
-    }
-
-    case actionTypes.CLEAR_HISTORY: {
-      return {
-        ...state,
-        items: [],
-      };
-    }
-
     case actionTypes.ADD_PLACE_ITEM: {
       const { item }: { item: PlaceItem | PlaceItem[] } = payload;
       return {

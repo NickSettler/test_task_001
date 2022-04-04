@@ -1,9 +1,5 @@
-export type HistoryItem = {
-  uuid: string;
-  name: string;
-};
+import { PlaceItem } from "../../../helpers/api/WeatherApi";
 
 export type HistorySchema = {
-  items: HistoryItem[];
   places: PlaceItem[];
 };

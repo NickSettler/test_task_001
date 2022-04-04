@@ -19,7 +19,7 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { PlaceItem } from "../../../helpers/api/WeatherApi";
 
 const HistoryDropdown = (props: HistoryDropdownProps): JSX.Element => {
-  const { anchorRef, historyItems, placeItems } = props;
+  const { anchorRef, placeItems } = props;
 
   const { open, handleItemClick } = useHistoryDropdown(props);
 
@@ -30,7 +30,7 @@ const HistoryDropdown = (props: HistoryDropdownProps): JSX.Element => {
       transition
       placement={"bottom-start"}
     >
-      {historyItems.length || placeItems.length ? (
+      {placeItems.length ? (
         ({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
             <Paper
@@ -40,32 +40,17 @@ const HistoryDropdown = (props: HistoryDropdownProps): JSX.Element => {
               }}
             >
               <List dense>
-                {placeItems.length === 0 ? (
-                  <>
-                    <ListItem>
-                      <ListItemText secondary={"History"} />
-                    </ListItem>
-                    {historyItems.map((item) => (
-                      <ListItemButton onClick={() => {}} key={item.query}>
-                        <Typography variant={"body1"}>{item.query}</Typography>
-                      </ListItemButton>
-                    ))}
-                  </>
-                ) : (
-                  <>
-                    <ListItem>
-                      <ListItemText secondary={"Search Results"} />
-                    </ListItem>
-                    {placeItems.map((item) => (
-                      <ListItemButton
-                        onClick={() => handleItemClick(item)}
-                        key={item.woeid}
-                      >
-                        <Typography variant={"body1"}>{item.title}</Typography>
-                      </ListItemButton>
-                    ))}
-                  </>
-                )}
+                <ListItem>
+                  <ListItemText secondary={"Search Results"} />
+                </ListItem>
+                {placeItems.map((item) => (
+                  <ListItemButton
+                    onClick={() => handleItemClick(item)}
+                    key={item.woeid}
+                  >
+                    <Typography variant={"body1"}>{item.title}</Typography>
+                  </ListItemButton>
+                ))}
               </List>
             </Paper>
           </Fade>
